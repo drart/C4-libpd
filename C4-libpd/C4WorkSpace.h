@@ -13,7 +13,8 @@
  
  @warning See C4CanvasController for a full list of functionality available in C4WorkSpace.
  */
+#import "PdAudioController.h"
 
 @interface C4WorkSpace : C4CanvasController 
-
+@property (strong, nonatomic, readonly) PdAudioController *audioController;
 @end

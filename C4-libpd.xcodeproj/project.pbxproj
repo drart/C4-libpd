@@ -45,7 +45,26 @@
 		6DD58A1616D5181C00CBA729 /* C4_TabbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DD58A1516D5181C00CBA729 /* C4_TabbarIcon@2x.png */; };
 		6DD58A1816D5181C00CBA729 /* C4_ToolbarIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DD58A1716D5181C00CBA729 /* C4_ToolbarIcon.png */; };
 		6DD58A1A16D5181C00CBA729 /* C4_ToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DD58A1916D5181C00CBA729 /* C4_ToolbarIcon@2x.png */; };
+		6DE56E9816D544490078E025 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9516D543D40078E025 /* libpd-ios.a */; };
+		6DE56E9A16D544590078E025 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9916D544590078E025 /* AudioToolbox.framework */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		6DE56E9416D543D40078E025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DE56E8F16D543D30078E025 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D2AAC07E0554694100DB518D;
+			remoteInfo = "libpd-ios";
+		};
+		6DE56E9616D543D40078E025 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 6DE56E8F16D543D30078E025 /* libpd.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 119013AB1486450C00086F19;
+			remoteInfo = "libpd-osx";
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		6DD5899E16D5181C00CBA729 /* C4-libpd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C4-libpd.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -126,6 +145,9 @@
 		6DD58A1516D5181C00CBA729 /* C4_TabbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "C4_TabbarIcon@2x.png"; path = "Logos/C4_TabbarIcon@2x.png"; sourceTree = "<group>"; };
 		6DD58A1716D5181C00CBA729 /* C4_ToolbarIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = C4_ToolbarIcon.png; path = Logos/C4_ToolbarIcon.png; sourceTree = "<group>"; };
 		6DD58A1916D5181C00CBA729 /* C4_ToolbarIcon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "C4_ToolbarIcon@2x.png"; path = "Logos/C4_ToolbarIcon@2x.png"; sourceTree = "<group>"; };
+		6DD58A2016D518B300CBA729 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
+		6DE56E8F16D543D30078E025 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = libpd/libpd.xcodeproj; sourceTree = "<group>"; };
+		6DE56E9916D544590078E025 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -133,6 +155,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6DE56E9A16D544590078E025 /* AudioToolbox.framework in Frameworks */,
+				6DE56E9816D544490078E025 /* libpd-ios.a in Frameworks */,
 				6DD589A216D5181C00CBA729 /* Accelerate.framework in Frameworks */,
 				6DD589A416D5181C00CBA729 /* AVFoundation.framework in Frameworks */,
 				6DD589A616D5181C00CBA729 /* CoreFoundation.framework in Frameworks */,
@@ -154,6 +178,8 @@
 		6DD5899516D5181C00CBA729 = {
 			isa = PBXGroup;
 			children = (
+				6DE56E8F16D543D30078E025 /* libpd.xcodeproj */,
+				6DD58A2016D518B300CBA729 /* Readme.md */,
 				6DD589B716D5181C00CBA729 /* C4-libpd */,
 				6DD589A016D5181C00CBA729 /* Frameworks */,
 				6DD5899F16D5181C00CBA729 /* Products */,
@@ -171,6 +197,7 @@
 		6DD589A016D5181C00CBA729 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				6DE56E9916D544590078E025 /* AudioToolbox.framework */,
 				6DD589A116D5181C00CBA729 /* Accelerate.framework */,
 				6DD589A316D5181C00CBA729 /* AVFoundation.framework */,
 				6DD589A516D5181C00CBA729 /* CoreFoundation.framework */,
@@ -291,6 +318,15 @@
 			name = Logos;
 			sourceTree = "<group>";
 		};
+		6DE56E9016D543D30078E025 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				6DE56E9516D543D40078E025 /* libpd-ios.a */,
+				6DE56E9716D543D40078E025 /* libpd-osx.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -330,12 +366,35 @@
 			mainGroup = 6DD5899516D5181C00CBA729;
 			productRefGroup = 6DD5899F16D5181C00CBA729 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 6DE56E9016D543D30078E025 /* Products */;
+					ProjectRef = 6DE56E8F16D543D30078E025 /* libpd.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				6DD5899D16D5181C00CBA729 /* C4-libpd */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		6DE56E9516D543D40078E025 /* libpd-ios.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-ios.a";
+			remoteRef = 6DE56E9416D543D40078E025 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		6DE56E9716D543D40078E025 /* libpd-osx.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = "libpd-osx.a";
+			remoteRef = 6DE56E9616D543D40078E025 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		6DD5899C16D5181C00CBA729 /* Resources */ = {
@@ -472,6 +531,7 @@
 					"\"$(SRCROOT)/C4-libpd/Library\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -487,6 +547,7 @@
 					"\"$(SRCROOT)/C4-libpd/Library\"",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				USER_HEADER_SEARCH_PATHS = "$(SRCROOT)/libpd/**";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -510,6 +571,7 @@
 				6DD58A1F16D5181C00CBA729 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
