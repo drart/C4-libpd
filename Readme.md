@@ -13,7 +13,7 @@ A working attempt to merge libpd with C4.
 - Changed relative search headers  $(SRCROOT)/../../ libpd
 - ibpd-ios as a dependency 
 - added AudioToolbox.framework
-- Put PDAudioController in C4Workspace.h
+- Put PDAudioController in C4AppDelegateh/m
 
 TODO
 ======

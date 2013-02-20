@@ -13,9 +13,16 @@
 @synthesize window = _window;
 @synthesize canvasController = _canvasController;
 @synthesize workspace = _workspace;
+@synthesize audioController = _audioController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 	[C4View class];
+    
+    _audioController = [[PdAudioController alloc] init];
+    if ([self.audioController configureAmbientWithSampleRate:44100
+                                              numberChannels:2 mixingEnabled:YES] != PdAudioOK) { NSLog(@"failed to initialize audio components");
+    }
+    
 	application.statusBarHidden = YES;
 	self.workspace = [[C4WorkSpace alloc] initWithNibName:@"C4Canvas" bundle:nil];
 	self.window = [[C4Window alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
@@ -37,6 +44,7 @@
     Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     */
+    self.audioController.active = NO;
 }
 											
 - (void)applicationDidEnterBackground:(UIApplication *)application {
@@ -56,6 +64,7 @@
     /*
     Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
     */
+    self.audioController.active = YES;
 }
 								
 - (void)applicationWillTerminate:(UIApplication *)application {

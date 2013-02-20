@@ -12,7 +12,17 @@
 @implementation C4WorkSpace
 
 -(void)setup {
-	//work your magic here
+    dispatcher = [[PdDispatcher alloc] init];
+    [PdBase setDelegate:dispatcher];
+    patch = [PdBase openFile:@"test.pd"
+                        path:[[NSBundle mainBundle] resourcePath]];
+    if (!patch) {
+        NSLog(@"Failed to open patch!"); // Gracefully handle failure...
+    }
+    
+    // this also works. pdbase manages having multiple patches
+    [PdBase openFile:@"test.pd" path:[[NSBundle mainBundle] resourcePath]];
+
 }
 
 

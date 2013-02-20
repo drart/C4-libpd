@@ -47,6 +47,7 @@
 		6DD58A1A16D5181C00CBA729 /* C4_ToolbarIcon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6DD58A1916D5181C00CBA729 /* C4_ToolbarIcon@2x.png */; };
 		6DE56E9816D544490078E025 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9516D543D40078E025 /* libpd-ios.a */; };
 		6DE56E9A16D544590078E025 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9916D544590078E025 /* AudioToolbox.framework */; };
+		6DE56E9C16D55CF50078E025 /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 6DE56E9B16D55CF50078E025 /* test.pd */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,6 +149,7 @@
 		6DD58A2016D518B300CBA729 /* Readme.md */ = {isa = PBXFileReference; lastKnownFileType = text; path = Readme.md; sourceTree = "<group>"; };
 		6DE56E8F16D543D30078E025 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = libpd/libpd.xcodeproj; sourceTree = "<group>"; };
 		6DE56E9916D544590078E025 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		6DE56E9B16D55CF50078E025 /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.pd; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -228,6 +230,7 @@
 		6DD589B816D5181C00CBA729 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
+				6DE56E9B16D55CF50078E025 /* test.pd */,
 				6DD589B916D5181C00CBA729 /* C4-libpd-Info.plist */,
 				6DD589BA16D5181C00CBA729 /* InfoPlist.strings */,
 				6DD589BD16D5181C00CBA729 /* main.m */,
@@ -424,6 +427,7 @@
 				6DD58A1616D5181C00CBA729 /* C4_TabbarIcon@2x.png in Resources */,
 				6DD58A1816D5181C00CBA729 /* C4_ToolbarIcon.png in Resources */,
 				6DD58A1A16D5181C00CBA729 /* C4_ToolbarIcon@2x.png in Resources */,
+				6DE56E9C16D55CF50078E025 /* test.pd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
