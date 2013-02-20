@@ -13,9 +13,5 @@
  
  @warning See C4CanvasController for a full list of functionality available in C4WorkSpace.
  */
-#import "PdDispatcher.h"
-@interface C4WorkSpace : C4CanvasController{
-    PdDispatcher *dispatcher;
-    void *patch;
-}
+@interface C4WorkSpace : C4CanvasController
 @end

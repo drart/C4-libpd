@@ -10,7 +10,7 @@
 
 #import "C4WorkSpace.h"
 
-#import "PdAudioController.h"
+
 
 
 /** This document describes the basic C4AppDelegate, a subclass of UIResponder which conforms to the UIApplicationDelegate protocol.
@@ -19,11 +19,6 @@ The C4AppDelegate class is used to define the main window of an application as a
 */
 
 @interface C4AppDelegate : UIResponder <UIApplicationDelegate>
-
-
-@property (strong, nonatomic, readonly) PdAudioController *audioController;
-
-
 
 
 /** The main application window.

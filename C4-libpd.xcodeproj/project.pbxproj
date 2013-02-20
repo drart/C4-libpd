@@ -48,6 +48,7 @@
 		6DE56E9816D544490078E025 /* libpd-ios.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9516D543D40078E025 /* libpd-ios.a */; };
 		6DE56E9A16D544590078E025 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DE56E9916D544590078E025 /* AudioToolbox.framework */; };
 		6DE56E9C16D55CF50078E025 /* test.pd in Resources */ = {isa = PBXBuildFile; fileRef = 6DE56E9B16D55CF50078E025 /* test.pd */; };
+		6DE56E9F16D55EA20078E025 /* C4PureData.m in Sources */ = {isa = PBXBuildFile; fileRef = 6DE56E9E16D55EA20078E025 /* C4PureData.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -150,6 +151,8 @@
 		6DE56E8F16D543D30078E025 /* libpd.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = libpd.xcodeproj; path = libpd/libpd.xcodeproj; sourceTree = "<group>"; };
 		6DE56E9916D544590078E025 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		6DE56E9B16D55CF50078E025 /* test.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test.pd; sourceTree = "<group>"; };
+		6DE56E9D16D55EA20078E025 /* C4PureData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = C4PureData.h; sourceTree = "<group>"; };
+		6DE56E9E16D55EA20078E025 /* C4PureData.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = C4PureData.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -236,6 +239,8 @@
 				6DD589BD16D5181C00CBA729 /* main.m */,
 				6DD589BF16D5181C00CBA729 /* C4-libpd-Prefix.pch */,
 				6DD589C016D5181C00CBA729 /* C4WorkSpace.h */,
+				6DE56E9D16D55EA20078E025 /* C4PureData.h */,
+				6DE56E9E16D55EA20078E025 /* C4PureData.m */,
 				6DD589C116D5181C00CBA729 /* C4AppDelegate.h */,
 				6DD589C216D5181C00CBA729 /* C4AppDelegate.m */,
 				6DD589F816D5181C00CBA729 /* C4Canvas.xib */,
@@ -441,6 +446,7 @@
 				6DD589BE16D5181C00CBA729 /* main.m in Sources */,
 				6DD589C316D5181C00CBA729 /* C4AppDelegate.m in Sources */,
 				6DD589C516D5181C00CBA729 /* C4WorkSpace.m in Sources */,
+				6DE56E9F16D55EA20078E025 /* C4PureData.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

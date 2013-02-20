@@ -7,22 +7,15 @@
 //
 
 #import "C4WorkSpace.h"
-
+#import "C4PureData.h"
 
 @implementation C4WorkSpace
 
 -(void)setup {
-    dispatcher = [[PdDispatcher alloc] init];
-    [PdBase setDelegate:dispatcher];
-    patch = [PdBase openFile:@"test.pd"
-                        path:[[NSBundle mainBundle] resourcePath]];
-    if (!patch) {
-        NSLog(@"Failed to open patch!"); // Gracefully handle failure...
-    }
-    
-    // this also works. pdbase manages having multiple patches
-    [PdBase openFile:@"test.pd" path:[[NSBundle mainBundle] resourcePath]];
-
+    C4PureData *pd = [C4PureData alloc];
+    pd.initPD;
+    pd.addPatch;
+    [pd startPD];
 }
 
 
