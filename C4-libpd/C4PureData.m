@@ -10,42 +10,48 @@
 
 @implementation C4PureData
 @synthesize audioController = _audioController;
+//@synthesize dispatcher = _dispatcher;
 
--(BOOL) initPD{
+-(C4PureData *) init
+{
     _audioController = [[PdAudioController alloc] init];
-    if ([self.audioController configureAmbientWithSampleRate:44100
-                                          numberChannels:2 mixingEnabled:YES] != PdAudioOK)
+    if ([self.audioController configureAmbientWithSampleRate:44100 numberChannels:2 mixingEnabled:YES] != PdAudioOK)
     {
         NSLog(@"failed to initialize audio components");
-        return NO;
+        exit(1); /// bad idea.
     }
-    
-    [self.audioController setActive:YES];
-   
-    return YES;
+    return self;
 }
 
--(BOOL) addPatch {
+-(C4PureData *) initWithPatch: (NSString *) patch
+{
+    self = [self init];
+    [self openPatch:patch];
+    return self;
+}
+
+
+-(void) openPatch: (NSString *) patch
+{
     dispatcher = [[PdDispatcher alloc] init];
     [PdBase setDelegate:dispatcher];
-    patch = [PdBase openFile:@"test.pd"
+    thepatch = [PdBase openFile:patch
                         path:[[NSBundle mainBundle] resourcePath]];
-    if (!patch) {
+    if (!thepatch) {
         NSLog(@"Failed to open patch!"); // Gracefully handle failure...
-        return NO;
     }
     
-    return YES;
+    [self start];
 }
 
--(void) startPD{
+-(void) start
+{
     self.audioController.active = YES;
 }
 
--(void) stopPD{
+-(void) stop
+{
     self.audioController.active = NO;
 }
-
-
 
 @end

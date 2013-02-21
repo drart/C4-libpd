@@ -10,12 +10,23 @@
 #import "C4PureData.h"
 
 @implementation C4WorkSpace
+C4PureData *pd;
+C4PureData *pd2;
 
 -(void)setup {
-    C4PureData *pd = [C4PureData alloc];
-    pd.initPD;
-    pd.addPatch;
-    [pd startPD];
+    /* // method 1
+    pd = [[C4PureData alloc] init] ;
+    [pd openPatch:@"test.pd"];
+    [pd start];
+     */
+    
+    // method 2
+    pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
+    // open another patch!!!
+    [pd openPatch:@"test2.pd"];
+
+    //  this is a problem. must check for init.
+    //pd2 = [[C4PureData alloc] initWithPatch:@"test.pd"];
 }
 
 

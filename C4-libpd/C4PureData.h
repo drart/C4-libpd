@@ -11,14 +11,18 @@
 #import "PdAudioController.h"
 #import "PdDispatcher.h"
 
-
 @interface C4PureData : NSObject{
-    PdDispatcher *dispatcher;
-    void *patch;
+    PdDispatcher * dispatcher;
+    void * thepatch;
 }
--(BOOL) initPD;
--(BOOL) addPatch;
--(void) stopPD;
--(void) startPD;
-@property (strong, nonatomic, readonly) PdAudioController *audioController;
+-(C4PureData *) init;
+
+-(C4PureData *) initWithPatch: (NSString *) patch;
+-(void) openPatch: (NSString *) patch;
+
+-(void) stop;
+-(void) start;
+
+@property (strong, nonatomic, readonly) PdAudioController * audioController;
+//@property (strong, nonatomic, readonly) PdDispatcher * dispatcher;
 @end
