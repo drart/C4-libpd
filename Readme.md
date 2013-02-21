@@ -1,11 +1,28 @@
 C4-libpd
 =========
 
-
 A working attempt to merge libpd with C4. 
 
+Getting Started
+================
+
+On the command line type:
+
+    git clone git@github.com:drart/C4-libpd.git
+    cd C4-libpd/
+    git submodule init
+    git submodule update
+    open .
+
+- Click on the XCODE project. 
+- Select the C4-libpd scheme and run it on either the simulator or your device
+- Enjoy!
+- Hack!
+- Email me.
 
 
+LOG
+========
 
 - Created xcode project
 - Added git submodule git://github.com/libpd/libpd.git
@@ -18,5 +35,5 @@ A working attempt to merge libpd with C4.
 TODO
 ======
 
-- Where appdelegate and viewcontroller in C4? How do I copy code from other tutorials?
-- Make a C4PureData class
+- Make C4PD static or prevent multiple instantiations of PDAudioController
+- Make a real log file
