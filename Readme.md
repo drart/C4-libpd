@@ -6,6 +6,8 @@ A working attempt to merge libpd with C4.
 Getting Started
 ================
 
+Download and install C4 - http://www.cocoaforartists.org
+
 On the command line type:
 
     git clone git@github.com:drart/C4-libpd.git
@@ -30,10 +32,11 @@ LOG
 - Changed relative search headers  $(SRCROOT)/../../ libpd
 - ibpd-ios as a dependency 
 - added AudioToolbox.framework
-- Put PDAudioController in C4AppDelegateh/m
+- Put PDAudioController in C4PureData h/m
 
 TODO
 ======
 
 - Make C4PD static or prevent multiple instantiations of PDAudioController
 - Make a real log file
+- Manage opening and closing patches

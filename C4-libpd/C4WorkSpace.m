@@ -27,6 +27,8 @@ C4PureData *pd2;
 
     //  this is a problem. must check for init.
     //pd2 = [[C4PureData alloc] initWithPatch:@"test.pd"];
+    
+    NSLog(@"Number of patches open: %d", [pd patchesOpen]);
 }
 
 
