@@ -21,7 +21,6 @@ PdFile * ff;
     /* // method 1 for instantiating C4PD
     pd = [[C4PureData alloc] init] ;
     [pd openPatch:@"test.pd"];
-    [pd start];
      */
     
     // method 2
@@ -33,18 +32,17 @@ PdFile * ff;
     //  this is a problem. must check for init.
     //pd2 = [[C4PureData alloc] initWithPatch:@"test.pd"];
     
-    NSLog(@"Number of patches open: %d", [pd patchesOpen]);
-    for (int i = [pd patchesOpen]-1 ; i >= 0 ; i--)
+    [pd printPatches];
+
+    for (int i = [pd numberOfPatchesOpen]-1 ; i >= 0 ; i--)
     {
         [pd closePatch:i];
-        NSLog(@"Number of patches open: %d", [pd patchesOpen]);
     }
-    NSLog(@"Number of patches open: %d", [pd patchesOpen]);
-    
+    NSLog(@"Number of patches open: %d", [pd numberOfPatchesOpen]);
     
     sleep(1);
     [pd openPatch:@"test2.pd"];
-    
+        
     [PdBase sendFloat:0.0 toReceiver:@"left"];
     [pd sendFloatToAPatch:0.0 toReceiver:@"right" toPatch:0];
 }

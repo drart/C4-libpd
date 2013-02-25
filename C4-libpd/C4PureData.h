@@ -3,7 +3,6 @@
 //  C4-libpd
 //
 //  Created by Adam Tindale on 2013-02-20.
-//  Copyright (c) 2013 Adam Tindale. All rights reserved.
 //  
 
 #import <Foundation/Foundation.h>
@@ -14,6 +13,7 @@
 
 
 @interface C4PureData : NSObject{
+    PdAudioController * audioController;
     PdDispatcher * dispatcher;
     NSMutableArray *  patches;
 }
@@ -21,14 +21,17 @@
 -(id) init;
 -(id) initWithPatch: (NSString *) patchName;
 
--(void) stop;
 -(void) start;
+-(void) stop;
 
 // Patch Management
 -(void) openPatch: (NSString *) patchName;
--(void) closePatch: (int) index;  // or can i call from filename?
--(int) patchesOpen;
+-(void) closePatch: (int) index;
+-(void) closeThisPatch: (PdFile  * ) file;
+-(void) closePatchFromFilename: (NSString *) fileName;
+-(int) numberOfPatchesOpen;
 -(PdFile *) returnPatch:(int) index;
+-(void) printPatches;
 
 // Messaging objects
 -(void) sendBang: (NSString *) receiver;
@@ -36,6 +39,4 @@
 -(void) sendFloat: (float) f toReceiver: (NSString *) r;
 -(void) sendFloatToAPatch: (float) f toReceiver: (NSString *) r toPatch: (int) index;
 
-@property (strong, nonatomic, readonly) PdAudioController * audioController;
-//@property (strong, nonatomic, readonly) PdDispatcher * dispatcher;
 @end
