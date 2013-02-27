@@ -17,19 +17,13 @@ PdFile * ff;
 
 
 -(void)setup {
-    
-    /* // method 1 for instantiating C4PD
-    pd = [[C4PureData alloc] init] ;
-    [pd openPatch:@"test.pd"];
-     */
-    
-    // method 2
+
     pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
     
     // open another patch!!!
-    [pd openPatch:@"test2.pd"];
+    ff = [pd openPatch:@"test2.pd"];
 
-    //  this is a problem. must check for init.
+    //  Now this will crash. Only have on C4PD in your
     //pd2 = [[C4PureData alloc] initWithPatch:@"test.pd"];
     
     [pd printPatches];
@@ -43,8 +37,8 @@ PdFile * ff;
     sleep(1);
     [pd openPatch:@"test2.pd"];
         
-    [PdBase sendFloat:0.0 toReceiver:@"left"];
-    [pd sendFloatToAPatch:0.0 toReceiver:@"right" toPatch:0];
+    [PdBase sendFloat:0.4 toReceiver:@"left"];
+    [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
 }
 
 @end

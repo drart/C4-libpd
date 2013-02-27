@@ -8,9 +8,15 @@
 #import "C4PureData.h"
 
 @implementation C4PureData
+static C4PureData * mystaticinstance;
 
 -(id) init
 {
+    if (nil != mystaticinstance)
+        @throw [NSException exceptionWithName:@"MultipleDefinitionsOfC4PD" reason:@"Multiple instatiations of C4PureDat are not allowed" userInfo:nil ];
+    
+    mystaticinstance = self;
+    
     audioController = [[PdAudioController alloc] init];
     if ([audioController configureAmbientWithSampleRate:44100 numberChannels:2 mixingEnabled:YES] != PdAudioOK)
     {
@@ -50,7 +56,7 @@
 // Patch Management
 //-------------------------------------------
 
--(void) openPatch: (NSString *) patchName
+-(id) openPatch: (NSString *) patchName
 {
 
     
@@ -59,6 +65,7 @@
         NSLog(@"Failed to open patch!"); // Gracefully handle failure...
     }
     [patches addObject:pdpatch];
+    return pdpatch;
 }
 
 -(void) closePatch: (int) index
@@ -124,6 +131,11 @@
 -(void) sendFloatToAPatch: (float) f toReceiver: (NSString *) r toPatch: (int) index
 {
     [PdBase sendFloat:f toReceiver: [NSString stringWithFormat:@"%d%@",[[patches objectAtIndex:index] dollarZero],r]];
+}
+
+-(int) sendNoteOn:(int)channel pitch:(int)pitch velocity:(int)velocity
+{
+    return [PdBase sendNoteOn:channel pitch:pitch velocity:velocity];
 }
 
 @end
