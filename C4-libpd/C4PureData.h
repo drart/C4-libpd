@@ -7,14 +7,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "PdBase.h"
 #import "PdAudioController.h"
-#import "PdDispatcher.h"
 #import "PdFile.h"
 
 
 @interface C4PureData : NSObject{
     PdAudioController * audioController;
-    PdDispatcher * dispatcher;
     NSMutableArray *  patches;
 }
 

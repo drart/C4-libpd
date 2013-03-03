@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6D2876C216E068A800EAB5B2 /* simpleXYsynth.pd in Resources */ = {isa = PBXBuildFile; fileRef = 6D2876C116E068A800EAB5B2 /* simpleXYsynth.pd */; };
 		6D4D61EC16D5D4CA0008492D /* test2.pd in Resources */ = {isa = PBXBuildFile; fileRef = 6D4D61EB16D5D4CA0008492D /* test2.pd */; };
 		6DD589A216D5181C00CBA729 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD589A116D5181C00CBA729 /* Accelerate.framework */; };
 		6DD589A416D5181C00CBA729 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD589A316D5181C00CBA729 /* AVFoundation.framework */; };
@@ -70,6 +71,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		6D2876C116E068A800EAB5B2 /* simpleXYsynth.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = simpleXYsynth.pd; sourceTree = "<group>"; };
 		6D4D61EB16D5D4CA0008492D /* test2.pd */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = test2.pd; sourceTree = "<group>"; };
 		6DD5899E16D5181C00CBA729 /* C4-libpd.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "C4-libpd.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6DD589A116D5181C00CBA729 /* Accelerate.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Accelerate.framework; path = System/Library/Frameworks/Accelerate.framework; sourceTree = SDKROOT; };
@@ -235,10 +237,11 @@
 		6DD589B816D5181C00CBA729 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				6DE7642116D5785A00AC7628 /* C4PureData.h */,
-				6DE7642216D5785A00AC7628 /* C4PureData.m */,
+				6D2876C116E068A800EAB5B2 /* simpleXYsynth.pd */,
 				6DE56E9B16D55CF50078E025 /* test.pd */,
 				6D4D61EB16D5D4CA0008492D /* test2.pd */,
+				6DE7642116D5785A00AC7628 /* C4PureData.h */,
+				6DE7642216D5785A00AC7628 /* C4PureData.m */,
 				6DD589B916D5181C00CBA729 /* C4-libpd-Info.plist */,
 				6DD589BA16D5181C00CBA729 /* InfoPlist.strings */,
 				6DD589BD16D5181C00CBA729 /* main.m */,
@@ -437,6 +440,7 @@
 				6DD58A1A16D5181C00CBA729 /* C4_ToolbarIcon@2x.png in Resources */,
 				6DE56E9C16D55CF50078E025 /* test.pd in Resources */,
 				6D4D61EC16D5D4CA0008492D /* test2.pd in Resources */,
+				6D2876C216E068A800EAB5B2 /* simpleXYsynth.pd in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -8,7 +8,7 @@
 #import "C4PureData.h"
 
 @implementation C4PureData
-static C4PureData * mystaticinstance;
+    static C4PureData * mystaticinstance;
 
 -(id) init
 {
@@ -23,10 +23,6 @@ static C4PureData * mystaticinstance;
         NSLog(@"failed to initialize audio components");
         exit(1); /// bad idea.
     }
-    
-    // PDDispatcher receives print messages from PD
-    dispatcher = [[PdDispatcher alloc] init];
-    [PdBase setDelegate:dispatcher];
     
     patches = [[NSMutableArray alloc] init];
     
@@ -139,3 +135,4 @@ static C4PureData * mystaticinstance;
 }
 
 @end
+
