@@ -14,5 +14,5 @@
  @warning See C4CanvasController for a full list of functionality available in C4WorkSpace.
  */
 #import "PdBase.h"
-@interface C4WorkSpace : C4CanvasController <PdReceiverDelegate>
+@interface C4WorkSpace : C4CanvasController <PdReceiverDelegate, PdListener>
 @end

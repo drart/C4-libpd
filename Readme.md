@@ -20,7 +20,7 @@ On the command line type:
 - Select the C4-libpd scheme and run it on either the simulator or your device
 - Enjoy!
 - Hack!
-- Email me.
+- Email me. <adam@adamtindale.com>
 
 
 LOG
@@ -33,6 +33,7 @@ LOG
 - ibpd-ios as a dependency 
 - added AudioToolbox.framework
 - Put PDAudioController in C4PureData h/m
+- Implemented PDReceiverDelegate protocol for C4Workspace
 
 TODO
 ======
@@ -40,3 +41,4 @@ TODO
 - Make C4PD static or prevent multiple instantiations of PDAudioController
 - Make a real log file
 - Manage opening and closing patches
+- implement PDlistener
