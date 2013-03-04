@@ -34,6 +34,10 @@ LOG
 - added AudioToolbox.framework
 - Put PDAudioController in C4PureData h/m
 - Implemented PDReceiverDelegate protocol for C4Workspace
+----- C4PDclass branch -- testing a new build without xcode project put in
+- Preprocessor Macro in Build settings -> HAVE_UNISTD_H to get <sys/stat.h> included
+- Compiler flags in Build Phase for .m files in libpd -> -fno-objc-arc
+- added -w flag for the pd files to suppress the unused variable warnings
 
 TODO
 ======
