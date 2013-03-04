@@ -362,7 +362,8 @@
 				6D589C5716E4527A00ADD824 /* pure-data */,
 				6D589CD116E4527B00ADD824 /* README.txt */,
 			);
-			path = libpd;
+			name = libpd;
+			path = ../libpd;
 			sourceTree = "<group>";
 		};
 		6D589C3016E4527A00ADD824 /* libpd_wrapper */ = {
@@ -509,7 +510,6 @@
 				6DD589B716D5181C00CBA729 /* C4-libpd */,
 				6DD589A016D5181C00CBA729 /* Frameworks */,
 				6DD5899F16D5181C00CBA729 /* Products */,
-				6D589BF516E4527A00ADD824 /* libpd */,
 			);
 			sourceTree = "<group>";
 		};
@@ -568,6 +568,7 @@
 				6DD589C116D5181C00CBA729 /* C4AppDelegate.h */,
 				6DD589C216D5181C00CBA729 /* C4AppDelegate.m */,
 				6DD589F816D5181C00CBA729 /* C4Canvas.xib */,
+				6D589BF516E4527A00ADD824 /* libpd */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
