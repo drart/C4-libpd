@@ -68,12 +68,14 @@
 {
     [patches[index] closeFile];
     [patches removeObjectAtIndex:index];
+    //[file closeFile];
 }
 
 -(void) closeThisPatch:(PdFile *)file
 {
     if ([patches containsObject:file])
         [self closePatch:[patches indexOfObject:file]];
+
 }
 
 -(void) closePatchFromFilename:(NSString *)fileName
@@ -129,10 +131,24 @@
     [PdBase sendFloat:f toReceiver: [NSString stringWithFormat:@"%d%@",[[patches objectAtIndex:index] dollarZero],r]];
 }
 
+/*
+//-------------------------------------------
+// MIDI Sending
+//-------------------------------------------
+
 -(int) sendNoteOn:(int)channel pitch:(int)pitch velocity:(int)velocity
 {
     return [PdBase sendNoteOn:channel pitch:pitch velocity:velocity];
 }
+- (int)sendControlChange:(int)channel controller:(int)controller value:(int)value;
+- (int)sendProgramChange:(int)channel value:(int)value;
+- (int)sendPitchBend:(int)channel value:(int)value;
+- (int)sendAftertouch:(int)channel value:(int)value;
+- (int)sendPolyAftertouch:(int)channel pitch:(int)pitch value:(int)value;
+- (int)sendMidiByte:(int)port byte:(int)byte;
+- (int)sendSysex:(int)port byte:(int)byte;
+- (int)sendSysRealTime:(int)port byte:(int)byte;
+*/
 
 @end
 

@@ -12,8 +12,8 @@
 @implementation C4WorkSpace
 {
     C4PureData *pd;
-    C4PureData *pd2;
     PdFile * ff;
+    PdFile * touchPatch;
     UITextView * text;
     C4Shape * s ;
 
@@ -36,7 +36,6 @@
     [self.canvas addSubview:text];
     
 
-    
     pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
     
     ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
@@ -51,41 +50,57 @@
     
     sleep(1);
     
-    [pd openPatch:@"test2.pd"];
+    ff = [pd openPatch:@"test2.pd"]; // now patch 0
     [PdBase sendFloat:0.4 toReceiver:@"left"];
     [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
-    
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     
-    if (nil == s)
-        s = [C4Shape rect:CGRectMake(0, 0,100, 100)];
-    
     CGPoint pointOnScreen = [[touches anyObject] locationInView:self.view];
     
+    if (nil == s)
+    {
+        s = [C4Shape rect:CGRectMake(0, 0,100, 100)];
+        [s setFillColor:[UIColor blackColor]];
+        [s setStrokeColor:[UIColor grayColor]];
+    }
     [s setCenter:pointOnScreen];
-    [s setFillColor:[UIColor blackColor]];
-    [s setStrokeColor:[UIColor grayColor]];
     [self.canvas addShape:s];
+
+    if (nil == touchPatch)
+        touchPatch = [pd openPatch:@"simpleXYSynth.pd"];
+    else
+    {
+        touchPatch = [touchPatch openNewInstance];
+        NSLog(@" %@", touchPatch);
+
+    }
     
-    [pd openPatch:@"test2.pd"]; // [self.pd openPatch]
-    [pd printPatches];  // [self.pd printPatches] ??
+    [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceiver:@"freq"];
+    [pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceiver:@"filterFreq"];
+
+    [pd openPatch:@"test2.pd"];
+    [pd printPatches]; 
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
 {
     CGPoint pointOnScreen = [[touches anyObject] locationInView:self.view];
     [s setCenter:pointOnScreen];
+    
+    [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceiver:@"freq"];
+    [pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceiver:@"filterFreq"];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event
 {
     [self.canvas removeObject:s];
+    [touchPatch closeFile];
 }
 
 ///// PDReceiverDelegate  /////
-
+/// receives anything that is passed to a [print] object in PD
 -(void)receivePrint:(NSString *)message
 {
     NSMutableString * s = [[NSMutableString alloc]initWithString:[NSString stringWithFormat:@"%@ : %@", [NSDate date] , message]];

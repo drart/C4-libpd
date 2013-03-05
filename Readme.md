@@ -45,4 +45,5 @@ TODO
 - Make C4PD static or prevent multiple instantiations of PDAudioController
 - Make a real log file
 - Manage opening and closing patches
-- implement PDlistener
+- create a C4label for every patch opened an allow to quit
+- listopen patches should PDbase for open patches, as users can bypass C4PD by calling PDbase directly (or indirectly through PDFile).
