@@ -25,6 +25,8 @@
     }
     
     patches = [[NSMutableArray alloc] init];
+    patchionary = [[NSMutableDictionary alloc] init];
+    
     
     [self start];  // ;dsp on
     
@@ -53,14 +55,16 @@
 //-------------------------------------------
 
 -(id) openPatch: (NSString *) patchName
-{
-
-    
+{    
     PdFile * pdpatch = [PdFile openFileNamed:patchName path:[[NSBundle mainBundle] resourcePath]];
     if (!pdpatch) {
         NSLog(@"Failed to open patch!"); // Gracefully handle failure...
     }
     [patches addObject:pdpatch];
+
+    // FUTURE
+    [patchionary setObject:pdpatch forKey: [NSString stringWithFormat:@"%d", [pdpatch dollarZero]]];
+    
     return pdpatch;
 }
 

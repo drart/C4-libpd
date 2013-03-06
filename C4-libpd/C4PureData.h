@@ -15,6 +15,7 @@
 @interface C4PureData : NSObject{
     PdAudioController * audioController;
     NSMutableArray *  patches;
+    NSMutableDictionary * patchionary;
 }
 
 -(id) init;

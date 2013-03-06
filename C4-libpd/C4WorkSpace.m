@@ -3,7 +3,6 @@
 //  C4-libpd
 //
 //  Created by Adam Tindale on 2013-02-20.
-//  Copyright (c) 2013 Adam Tindale. All rights reserved.
 //
 
 #import "C4WorkSpace.h"
@@ -11,18 +10,22 @@
 
 @implementation C4WorkSpace
 {
-    C4PureData *pd;
+    C4PureData * pd;
     PdFile * ff;
     PdFile * touchPatch;
     UITextView * text;
     C4Shape * s ;
-
 }
 
 -(void)setup {
 
-    // C4PDprint receives print messages from PD
-    [PdBase setDelegate:self];
+    ///// GUI Setup
+    UISwitch * dspswitch = [[UISwitch alloc] initWithFrame:
+                            CGRectMake(self.canvas.width - 90, 5, 0, 0)];
+    [dspswitch setOn:YES];
+    [self.canvas addSubview:dspswitch];
+    [dspswitch addTarget:self action:@selector(switchIsChanged:)
+        forControlEvents:UIControlEventValueChanged];
     
     /// Set up scrolling text output
     /// text is received from the PD print object via PDReceiverDelegate method below
@@ -35,17 +38,31 @@
     text.text = [NSString stringWithFormat:@"%@", [NSDate date]];
     [self.canvas addSubview:text];
     
-
+    /*   //// FUTURE
+    UISlider * slider1 = [[UISlider alloc] initWithFrame:
+                          CGRectMake(self.canvas.width/2, 60, self.canvas.width/2-15, 30)];
+    [self.canvas addSubview:slider1];
+    [slider1 addTarget:self action:@selector(slider1IsChanged:)
+        forControlEvents:UIControlEventValueChanged];
+    
+    UISlider * slider2 = [[UISlider alloc] initWithFrame:
+                          CGRectMake(self.canvas.width/2, 90, self.canvas.width/2-15, 30)];
+    [self.canvas addSubview:slider2];
+    [slider2 addTarget:self action:@selector(slider2IsChanged:)
+      forControlEvents:UIControlEventValueChanged];
+    */
+    
+    ///// C4PureData Setup
+    // C4PDprint receives print messages from PD
+    [PdBase setDelegate:self];
+    
     pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
-    
     ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
-    
     [pd printPatches];
     
     for (int i = [pd numberOfPatchesOpen]-1 ; i >= 0 ; i--)
-    {
         [pd closePatch:i];
-    }
+    
     NSLog(@"Number of patches open: %d", [pd numberOfPatchesOpen]);
     
     sleep(1);
@@ -55,8 +72,10 @@
     [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
 }
 
--(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
-    
+///// Touch Events  /////
+
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
+{    
     CGPoint pointOnScreen = [[touches anyObject] locationInView:self.view];
     
     if (nil == s)
@@ -74,7 +93,6 @@
     {
         touchPatch = [touchPatch openNewInstance];
         NSLog(@" %@", touchPatch);
-
     }
     
     [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceiver:@"freq"];
@@ -99,15 +117,26 @@
     [touchPatch closeFile];
 }
 
+///// Audio On/Off Switch  /////
+- (void) switchIsChanged:(UISwitch *)paramSender
+{
+    if ([paramSender isOn])
+        [pd start];
+     else 
+        [pd stop];
+}
+
 ///// PDReceiverDelegate  /////
 /// receives anything that is passed to a [print] object in PD
 -(void)receivePrint:(NSString *)message
 {
-    NSMutableString * s = [[NSMutableString alloc]initWithString:[NSString stringWithFormat:@"%@ : %@", [NSDate date] , message]];
-    [s appendFormat:@"\r%@", text.text];
-    text.text = s;
+    NSMutableString * str = [[NSMutableString alloc] initWithString:[NSString stringWithFormat:@"%@ : %@", [NSDate date] , message]];
+    [str appendFormat:@"\r%@", text.text];
+    text.text = str;
 }
+
 ///// PDListener /////
+/// receives anything that is passed to a [send] or [s] object in PD
 - (void)receiveBangFromSource:(NSString *)source
 {
     [self receivePrint:source];
@@ -131,5 +160,3 @@
 }
 
 @end
-
-

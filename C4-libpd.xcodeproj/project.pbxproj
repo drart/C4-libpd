@@ -16,9 +16,6 @@
 		6D589D2A16E4527B00ADD824 /* z_queued.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C3916E4527A00ADD824 /* z_queued.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6D589D2B16E4527B00ADD824 /* x_libpdreceive.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C3B16E4527A00ADD824 /* x_libpdreceive.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6D589D2C16E4527B00ADD824 /* z_libpd.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C3D16E4527A00ADD824 /* z_libpd.c */; settings = {COMPILER_FLAGS = "-w"; }; };
-		6D589D3216E4527B00ADD824 /* LICENSE.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6D589C4516E4527A00ADD824 /* LICENSE.txt */; };
-		6D589D3316E4527B00ADD824 /* Makefile in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C4616E4527A00ADD824 /* Makefile */; };
-		6D589D3416E4527B00ADD824 /* mingw_build.bat in Resources */ = {isa = PBXBuildFile; fileRef = 6D589C4716E4527A00ADD824 /* mingw_build.bat */; };
 		6D589D3516E4527B00ADD824 /* AudioHelpers.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C4A16E4527A00ADD824 /* AudioHelpers.m */; };
 		6D589D3616E4527B00ADD824 /* PdAudioController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C4C16E4527A00ADD824 /* PdAudioController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		6D589D3716E4527B00ADD824 /* PdAudioUnit.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D589C4E16E4527A00ADD824 /* PdAudioUnit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -90,7 +87,6 @@
 		6D589D9916E4527B00ADD824 /* x_net.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589CC016E4527B00ADD824 /* x_net.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6D589D9A16E4527B00ADD824 /* x_qlist.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589CC116E4527B00ADD824 /* x_qlist.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6D589D9B16E4527B00ADD824 /* x_time.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589CC216E4527B00ADD824 /* x_time.c */; settings = {COMPILER_FLAGS = "-w"; }; };
-		6D589DA916E4527B00ADD824 /* README.txt in Resources */ = {isa = PBXBuildFile; fileRef = 6D589CD116E4527B00ADD824 /* README.txt */; };
 		6D589DCF16E457D400ADD824 /* s_file.c in Sources */ = {isa = PBXBuildFile; fileRef = 6D589CAF16E4527B00ADD824 /* s_file.c */; settings = {COMPILER_FLAGS = "-w"; }; };
 		6DD589A216D5181C00CBA729 /* Accelerate.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD589A116D5181C00CBA729 /* Accelerate.framework */; };
 		6DD589A416D5181C00CBA729 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6DD589A316D5181C00CBA729 /* AVFoundation.framework */; };
@@ -728,9 +724,6 @@
 				6DE56E9C16D55CF50078E025 /* test.pd in Resources */,
 				6D4D61EC16D5D4CA0008492D /* test2.pd in Resources */,
 				6D2876C216E068A800EAB5B2 /* simpleXYsynth.pd in Resources */,
-				6D589D3216E4527B00ADD824 /* LICENSE.txt in Resources */,
-				6D589D3416E4527B00ADD824 /* mingw_build.bat in Resources */,
-				6D589DA916E4527B00ADD824 /* README.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,7 +745,6 @@
 				6D589D2A16E4527B00ADD824 /* z_queued.c in Sources */,
 				6D589D2B16E4527B00ADD824 /* x_libpdreceive.c in Sources */,
 				6D589D2C16E4527B00ADD824 /* z_libpd.c in Sources */,
-				6D589D3316E4527B00ADD824 /* Makefile in Sources */,
 				6D589D3516E4527B00ADD824 /* AudioHelpers.m in Sources */,
 				6D589D3616E4527B00ADD824 /* PdAudioController.m in Sources */,
 				6D589D3716E4527B00ADD824 /* PdAudioUnit.m in Sources */,
