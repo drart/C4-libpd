@@ -19,10 +19,23 @@
 
 -(void)setup
 {
+    ///// C4PureData Setup
+    // C4PDprint receives print messages from PD
+    [PdBase setDelegate:self];
+    
+    pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
+    ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
+    
+    // patchNames returns an array of strings for your use
+    [self postString:[pd patchNames]];
+    
+    [PdBase sendFloat:0.4 toReceiver:@"left"]; // allows access to base class
+    [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
+    
+    
     ///// GUI Setup
     UISwitch * dspswitch = [[UISwitch alloc] initWithFrame:
                             CGRectMake(self.canvas.width - 90, 5, 0, 0)];
-    [dspswitch setOn:YES];
     [self.canvas addSubview:dspswitch];
     [dspswitch addTarget:self action:@selector(switchIsChanged:)
         forControlEvents:UIControlEventValueChanged];
@@ -51,28 +64,6 @@
     [slider2 addTarget:self action:@selector(slider2IsChanged:)
       forControlEvents:UIControlEventValueChanged];
     */
-    
-    ///// C4PureData Setup
-    // C4PDprint receives print messages from PD
-    [PdBase setDelegate:self];
-    
-    pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
-    ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
-
-    // patchNames returns an array of strings for your use
-    [self postString:[pd patchNames]]; 
-    
-    // close some patches
-    for (int i = [pd numberOfPatchesOpen]-1 ; i >= 0 ; i--)
-        [pd closePatch:i];
-    
-    [self receivePrint:[NSString stringWithFormat:@"Number of patches open: %d", [pd numberOfPatchesOpen]]];
-
-    //sleep(1);
-    
-    ff = [pd openPatch:@"test2.pd"]; // now patch zero. should really be indexed by $0
-    [PdBase sendFloat:0.4 toReceiver:@"left"];
-    [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
 }
 
 #pragma mark Touch Event Handlers

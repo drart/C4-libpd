@@ -27,9 +27,6 @@
     patches = [[NSMutableArray alloc] init];
     patchionary = [[NSMutableDictionary alloc] init];
     
-    
-    [self start];  // ;dsp on
-    
     return self;
 }
 

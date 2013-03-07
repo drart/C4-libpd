@@ -1,0 +1,11 @@
+#N canvas 969 382 181 249 10;
+#X obj 26 164 gate;
+#X obj 26 108 random 100;
+#X obj 26 189 s background;
+#X obj 24 45 r tick;
+#X obj 26 132 > 90;
+#X connect 0 0 2 0;
+#X connect 1 0 4 0;
+#X connect 3 0 1 0;
+#X connect 3 0 0 1;
+#X connect 4 0 0 0;
