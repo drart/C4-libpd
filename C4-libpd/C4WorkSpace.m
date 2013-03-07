@@ -13,6 +13,7 @@
     C4PureData * pd;
     PdFile * ff;
     PdFile * touchPatch;
+    PdFile * drums;
     UITextView * text;
     C4Shape * s ;
 }
@@ -22,23 +23,27 @@
     ///// C4PureData Setup
     // C4PDprint receives print messages from PD
     [PdBase setDelegate:self];
-    
-    pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
-    ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
+
+    pd = [[C4PureData alloc] initWithPatch:@"demo.pd"];
+    ff = [pd openPatch:@"boop.pd"]; // open another patch!!!
     
     // patchNames returns an array of strings for your use
     [self postString:[pd patchNames]];
     
-    [PdBase sendFloat:0.4 toReceiver:@"left"]; // allows access to base class
-    [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
-    
+    [pd openPatch:@"sequence2.pd"];
     
     ///// GUI Setup
     UISwitch * dspswitch = [[UISwitch alloc] initWithFrame:
                             CGRectMake(self.canvas.width - 90, 5, 0, 0)];
-    [self.canvas addSubview:dspswitch];
     [dspswitch addTarget:self action:@selector(switchIsChanged:)
         forControlEvents:UIControlEventValueChanged];
+    [self.canvas addSubview:dspswitch];
+
+    UISwitch * drumSwitch = [[UISwitch alloc] initWithFrame:
+                            CGRectMake(self.canvas.width - 90, 50, 0, 0)];
+    [drumSwitch addTarget:self action:@selector(drumSwitchChanged:)
+        forControlEvents:UIControlEventValueChanged];
+    [self.canvas addSubview:drumSwitch];
     
     /// Set up scrolling text output
     /// text is received from the PD print object via PDReceiverDelegate method below
@@ -51,19 +56,6 @@
     text.text = [NSString stringWithFormat:@"%@", [NSDate date]];
     [self.canvas addSubview:text];
     
-    /*   //// FUTURE
-    UISlider * slider1 = [[UISlider alloc] initWithFrame:
-                          CGRectMake(self.canvas.width/2, 60, self.canvas.width/2-15, 30)];
-    [self.canvas addSubview:slider1];
-    [slider1 addTarget:self action:@selector(slider1IsChanged:)
-        forControlEvents:UIControlEventValueChanged];
-    
-    UISlider * slider2 = [[UISlider alloc] initWithFrame:
-                          CGRectMake(self.canvas.width/2, 90, self.canvas.width/2-15, 30)];
-    [self.canvas addSubview:slider2];
-    [slider2 addTarget:self action:@selector(slider2IsChanged:)
-      forControlEvents:UIControlEventValueChanged];
-    */
 }
 
 #pragma mark Touch Event Handlers
@@ -86,13 +78,10 @@
         touchPatch = [touchPatch openNewInstance];
     
     [self receivePrint:[NSString stringWithFormat:@" %@", touchPatch]];
-
     
     [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceiver:@"freq"];
     [pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceiver:@"filterFreq"];
 
-    [pd openPatch:@"test2.pd"];
-    //[pd printPatches];
     [self postString:[pd patchNames]];
 }
 
@@ -164,5 +153,12 @@
         [pd start];
     else
         [pd stop];
+}
+-(void) drumSwitchChanged: (UISwitch *)paramSender
+{
+    if ([paramSender isOn])
+        drums = [pd openPatch:@"drums1.pd"];
+    else
+        [pd closeThisPatch:drums];
 }
 @end
