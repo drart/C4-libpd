@@ -111,6 +111,18 @@
     }
 }
 
+-(NSArray *) patchNames
+{
+    int patchCount = [patches count];
+    NSMutableArray * patchNameArray = [[NSMutableArray alloc] initWithCapacity:patchCount];
+    for (int i = 0 ; i < patchCount; i++)
+    {
+        [patchNameArray insertObject:[[patches objectAtIndex:i] baseName] atIndex:i];
+    }
+    return patchNameArray;
+}
+
+
 //-------------------------------------------
 // Message Sending
 //-------------------------------------------

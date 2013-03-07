@@ -17,8 +17,8 @@
     C4Shape * s ;
 }
 
--(void)setup {
-
+-(void)setup
+{
     ///// GUI Setup
     UISwitch * dspswitch = [[UISwitch alloc] initWithFrame:
                             CGRectMake(self.canvas.width - 90, 5, 0, 0)];
@@ -58,22 +58,24 @@
     
     pd = [[C4PureData alloc] initWithPatch:@"test.pd"];
     ff = [pd openPatch:@"test2.pd"]; // open another patch!!!
-    [pd printPatches];
+
+    // patchNames returns an array of strings for your use
+    [self postString:[pd patchNames]]; 
     
+    // close some patches
     for (int i = [pd numberOfPatchesOpen]-1 ; i >= 0 ; i--)
         [pd closePatch:i];
     
-    NSLog(@"Number of patches open: %d", [pd numberOfPatchesOpen]);
+    [self receivePrint:[NSString stringWithFormat:@"Number of patches open: %d", [pd numberOfPatchesOpen]]];
+
+    //sleep(1);
     
-    sleep(1);
-    
-    ff = [pd openPatch:@"test2.pd"]; // now patch 0
+    ff = [pd openPatch:@"test2.pd"]; // now patch zero. should really be indexed by $0
     [PdBase sendFloat:0.4 toReceiver:@"left"];
     [pd sendFloatToAPatch:0.4 toReceiver:@"right" toPatch:0];
 }
 
-///// Touch Events  /////
-
+#pragma mark Touch Event Handlers
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
 {    
     CGPoint pointOnScreen = [[touches anyObject] locationInView:self.view];
@@ -90,16 +92,17 @@
     if (nil == touchPatch)
         touchPatch = [pd openPatch:@"simpleXYSynth.pd"];
     else
-    {
         touchPatch = [touchPatch openNewInstance];
-        NSLog(@" %@", touchPatch);
-    }
+    
+    [self receivePrint:[NSString stringWithFormat:@" %@", touchPatch]];
+
     
     [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceiver:@"freq"];
     [pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceiver:@"filterFreq"];
 
     [pd openPatch:@"test2.pd"];
-    [pd printPatches]; 
+    //[pd printPatches];
+    [self postString:[pd patchNames]];
 }
 
 -(void)touchesMoved:(NSSet *)touches withEvent:(UIEvent *)event
@@ -117,16 +120,7 @@
     [touchPatch closeFile];
 }
 
-///// Audio On/Off Switch  /////
-- (void) switchIsChanged:(UISwitch *)paramSender
-{
-    if ([paramSender isOn])
-        [pd start];
-     else 
-        [pd stop];
-}
-
-///// PDReceiverDelegate  /////
+#pragma mark PDReceiverDelegate
 /// receives anything that is passed to a [print] object in PD
 -(void)receivePrint:(NSString *)message
 {
@@ -135,7 +129,7 @@
     text.text = str;
 }
 
-///// PDListener /////
+#pragma mark PDListener
 /// receives anything that is passed to a [send] or [s] object in PD
 - (void)receiveBangFromSource:(NSString *)source
 {
@@ -159,4 +153,25 @@
     [self receivePrint:source];
 }
 
+#pragma mark Utilities and Callbacks
+- (void)postString:(NSArray *)message
+{
+    
+    NSMutableString * str = [[NSMutableString alloc] init];
+    for (int i = 0; i < [message count]; i++)
+    {
+        [str appendFormat:@"\r%@ : C4PD. Patch ID: %d Patch Name %@", [NSDate date], i,  [message objectAtIndex:i]];
+    }
+    [str appendFormat:@"\r%@", text.text];
+    text.text = str;
+}
+
+///// Audio On/Off Switch  /////
+- (void) switchIsChanged:(UISwitch *)paramSender
+{
+    if ([paramSender isOn])
+        [pd start];
+    else
+        [pd stop];
+}
 @end

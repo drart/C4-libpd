@@ -38,12 +38,13 @@ LOG
 - Preprocessor Macro in Build settings -> HAVE_UNISTD_H to get <sys/stat.h> included
 - Compiler flags in Build Phase for .m files in libpd -> -fno-objc-arc
 - added -w flag for the pd files to suppress the unused variable warnings
+-  C4PD static to prevent multiple instantiations of PDAudioController
 
 TODO
 ======
 
-- Make C4PD static or prevent multiple instantiations of PDAudioController
 - Make a real log file
 - Manage opening and closing patches
 - create a C4label for every patch opened an allow to quit
 - listopen patches should PDbase for open patches, as users can bypass C4PD by calling PDbase directly (or indirectly through PDFile).
+- better demo patches

@@ -32,6 +32,7 @@
 -(int) numberOfPatchesOpen;
 -(PdFile *) returnPatch:(int) index;
 -(void) printPatches;
+-(NSArray * ) patchNames;
 
 // Messaging objects
 -(void) sendBang: (NSString *) receiver;
