@@ -14,7 +14,9 @@
     PdFile * ff;
     PdFile * touchPatch;
     PdFile * drums;
+    PdFile * seq1, * seq2, * bassline, * background;
     UITextView * text;
+    UISwitch * dspswitch, * drumSwitch, * seq1Switch, * seq2Switch, *backgroundSwitch,  * basslineSwitch;
     C4Shape * s ;
 }
 
@@ -25,25 +27,67 @@
     [PdBase setDelegate:self];
 
     pd = [[C4PureData alloc] initWithPatch:@"demo.pd"];
-    ff = [pd openPatch:@"boop.pd"]; // open another patch!!!
+    //ff = [pd openPatch:@"boop.pd"]; // open another patch!!!
     
     // patchNames returns an array of strings for your use
     [self postString:[pd patchNames]];
-    
-    [pd openPatch:@"sequence2.pd"];
+
+    seq2 = [pd openPatch:@"sequence2.pd"];
     
     ///// GUI Setup
-    UISwitch * dspswitch = [[UISwitch alloc] initWithFrame:
+    dspswitch = [[UISwitch alloc] initWithFrame:
                             CGRectMake(self.canvas.width - 90, 5, 0, 0)];
     [dspswitch addTarget:self action:@selector(switchIsChanged:)
         forControlEvents:UIControlEventValueChanged];
     [self.canvas addSubview:dspswitch];
-
-    UISwitch * drumSwitch = [[UISwitch alloc] initWithFrame:
-                            CGRectMake(self.canvas.width - 90, 50, 0, 0)];
-    [drumSwitch addTarget:self action:@selector(drumSwitchChanged:)
+    
+    C4Label * dsptext = [C4Label labelWithText:@"DSP "];
+    dsptext.center = CGPointMake(self.canvas.width - dspswitch.frame.size.width - dsptext.width, dspswitch.center.y);
+    dsptext.userInteractionEnabled = NO;
+    dsptext.textShadowColor = C4GREY;
+    dsptext.textShadowOffset = CGSizeMake(1,1);
+    [self.canvas addLabel:dsptext];
+    
+    drumSwitch = [[UISwitch alloc] initWithFrame:
+                            CGRectMake(self.canvas.width - 90, 55, 0, 0)];
+    [drumSwitch addTarget:self action:@selector(switchIsChanged:)
         forControlEvents:UIControlEventValueChanged];
     [self.canvas addSubview:drumSwitch];
+    
+    C4Label * drumtext = [C4Label labelWithText:@"Drums "];
+    drumtext.center = CGPointMake(self.canvas.width - drumSwitch.frame.size.width - drumtext.width, drumSwitch.center.y);
+    drumtext.userInteractionEnabled = NO;
+    drumtext.textShadowColor = C4GREY;
+    drumtext.textShadowOffset = CGSizeMake(1,1);
+    [self.canvas addLabel:drumtext];
+    
+    backgroundSwitch = [[UISwitch alloc] initWithFrame:
+                  CGRectMake(self.canvas.width - 90, 105, 0, 0)];
+    [backgroundSwitch addTarget:self action:@selector(switchIsChanged:)
+         forControlEvents:UIControlEventValueChanged];
+    [self.canvas addSubview:backgroundSwitch];
+    
+    C4Label * bgtext = [C4Label labelWithText:@"Background "];
+    bgtext.center = CGPointMake(self.canvas.width - backgroundSwitch.frame.size.width - bgtext.width, backgroundSwitch.center.y);
+    bgtext.userInteractionEnabled = NO;
+    bgtext.textShadowColor = C4GREY;
+    bgtext.textShadowOffset = CGSizeMake(1,1);
+    [self.canvas addLabel:bgtext];
+    
+    seq1Switch = [[UISwitch alloc] initWithFrame:
+                        CGRectMake(self.canvas.width - 90, 155, 0, 0)];
+    [seq1Switch addTarget:self action:@selector(switchIsChanged:)
+               forControlEvents:UIControlEventValueChanged];
+    [self.canvas addSubview:seq1Switch];
+    
+    C4Label * s1text = [C4Label labelWithText:@"Melody 1 "];
+    s1text.center = CGPointMake(self.canvas.width - seq1Switch.frame.size.width - s1text.width, seq1Switch.center.y);
+    s1text.userInteractionEnabled = NO;
+    s1text.textShadowColor = C4GREY;
+    s1text.textShadowOffset = CGSizeMake(1,1);
+    [self.canvas addLabel:s1text];
+    
+    
     
     /// Set up scrolling text output
     /// text is received from the PD print object via PDReceiverDelegate method below
@@ -149,16 +193,46 @@
 ///// Audio On/Off Switch  /////
 - (void) switchIsChanged:(UISwitch *)paramSender
 {
-    if ([paramSender isOn])
-        [pd start];
-    else
-        [pd stop];
+    if ([paramSender isEqual:dspswitch ])
+    {
+        if ([paramSender isOn])
+            [pd start];
+        else
+            [pd stop];
+    }
+    
+    if ([paramSender isEqual:drumSwitch ])
+    {
+        if ([paramSender isOn])
+            drums = [pd openPatch:@"drums1.pd"];
+        else
+            [pd closeThisPatch:drums];
+    }
+    
+    if ([paramSender isEqual:backgroundSwitch ])
+    {
+        if ([paramSender isOn])
+            background = [pd openPatch:@"backgroundsequence1.pd"];
+        else
+            [pd closeThisPatch:background];
+    }
+    
+    if ([paramSender isEqual:seq1Switch ])
+    {
+        if ([paramSender isOn])
+            seq1 = [pd openPatch:@"sequence1.pd"];
+        else
+            [pd closeThisPatch:seq1];
+    }
+    
+    if ([paramSender isEqual:seq2Switch ])
+    {
+        if ([paramSender isOn])
+            seq2 = [pd openPatch:@"sequence2.pd"];
+        else
+            [pd closeThisPatch:seq2];
+    }
+
 }
--(void) drumSwitchChanged: (UISwitch *)paramSender
-{
-    if ([paramSender isOn])
-        drums = [pd openPatch:@"drums1.pd"];
-    else
-        [pd closeThisPatch:drums];
-}
+
 @end
