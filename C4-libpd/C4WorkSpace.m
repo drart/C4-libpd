@@ -117,7 +117,7 @@
     [self.canvas addShape:s];
 
     if (nil == touchPatch)
-        touchPatch = [pd openPatch:@"simpleXYSynth.pd"];
+        touchPatch = [pd openPatch:@"simpleXYsynth.pd"];
     else
         touchPatch = [touchPatch openNewInstance];
     
@@ -207,6 +207,8 @@
             drums = [pd openPatch:@"drums1.pd"];
         else
             [pd closeThisPatch:drums];
+        
+        return;
     }
     
     if ([paramSender isEqual:backgroundSwitch ])
