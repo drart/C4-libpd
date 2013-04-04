@@ -8,14 +8,6 @@ Getting Started
 
 Download and install C4 - http://www.cocoaforartists.org
 
-On the command line type:
-
-    git clone git@github.com:drart/C4-libpd.git
-    cd C4-libpd/
-    git submodule init
-    git submodule update
-    open .
-
 - Click on the XCODE project. 
 - Select the C4-libpd scheme and run it on either the simulator or your device
 - Enjoy!
@@ -39,12 +31,13 @@ LOG
 - Compiler flags in Build Phase for .m files in libpd -> -fno-objc-arc
 - added -w flag for the pd files to suppress the unused variable warnings
 -  C4PD static to prevent multiple instantiations of PDAudioController
+- Made better demo patches
 
 TODO
 ======
 
+- Add http://theamazingaudioengine.com/
 - Make a real log file
-- Manage opening and closing patches
+- Manage opening and closing patches (Kind of done)
 - create a C4label for every patch opened an allow to quit
 - listopen patches should PDbase for open patches, as users can bypass C4PD by calling PDbase directly (or indirectly through PDFile).
-- better demo patches
