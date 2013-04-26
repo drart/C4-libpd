@@ -12,7 +12,7 @@
 #import "PdFile.h"
 
 
-@interface C4PureData : NSObject{
+@interface C4PureData : C4Object{
     PdAudioController * audioController;
     NSMutableArray *  patches;
     NSMutableDictionary * patchionary;

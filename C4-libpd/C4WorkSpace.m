@@ -8,6 +8,8 @@
 #import "C4WorkSpace.h"
 #import "C4PureData.h"
 
+#import "C4PD.h"
+
 @implementation C4WorkSpace
 {
     C4PureData * pd;
@@ -22,6 +24,7 @@
 
 -(void)setup
 {
+    C4PD *jf = [[C4PD alloc]init];
     ///// C4PureData Setup
     // C4PDprint receives print messages from PD
     [PdBase setDelegate:self];
