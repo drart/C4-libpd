@@ -64,8 +64,8 @@
     CGPoint pointOnScreen = [[touches anyObject] locationInView:self.view];
     [s setCenter:pointOnScreen];
     
-    [pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceive:@"freq"];
-    [pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceive:@"filterFreq"];
+    //[pd sendFloat:1-((float)pointOnScreen.y/self.canvas.height) toReceive:@"freq"];
+    //[pd sendFloat:(float)pointOnScreen.x/self.canvas.width toReceive:@"filterFreq"];
 }
 
 -(void)touchesEnded:(NSSet *)touches withEvent:(UIEvent *)event

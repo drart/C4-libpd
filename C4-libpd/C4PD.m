@@ -95,6 +95,7 @@ static C4PD * mystaticinstance;
     return tada;
 }
 
+
 - (void) start
 {
     //NSNumber * val = [[NSNumber alloc] initWithBool:YES];
@@ -159,9 +160,7 @@ static void bangHook(const char *src)
     
 }
 
-//-------------------------------------------
-// Patch Management
-//-------------------------------------------
+#pragma mark Patch Management
 
 -(int) openPatch: (NSString *) patchName
 {
@@ -241,6 +240,8 @@ static void bangHook(const char *src)
 #pragma mark Notification Methods
 */
 
+
+#pragma mark Amazing Audio Engine Methods
 -(AEAudioControllerAudioCallback)receiverCallback {
     return &audioCallback;
 }

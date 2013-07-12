@@ -15,7 +15,8 @@
 
 -(id) init;
 -(id) initWithPatch: (NSString *) patchName;
-
+// TODO?
+// -(id) initWithAEAudioController: (AEAudioController) * control;
 // Turn DSP on and off
 -(void) start;
 -(void) stop;
@@ -36,6 +37,7 @@
 -(void) sendFloat: (float)f toReceive:(NSString *)receive;
 -(void) sendFloatToAPatch:(float)f toReceive:(NSString *)receive toPatch:(int)index;
 
+// ripped from PdBase - to be revisited
 +(void)sendMessage:(NSString *)message withArguments:(NSArray *)list toReceive:(NSString *)receive;
 
 // Send MIDI to PD
@@ -53,6 +55,5 @@
 // Amazing Audio Engine methods
 static void audioCallback(id THIS, AEAudioController *audioController, void *source, const AudioTimeStamp *time, UInt32 frames, AudioBufferList *audio);
 - (AEAudioControllerAudioCallback)receiverCallback;
-
 
 @end
