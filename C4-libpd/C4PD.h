@@ -49,4 +49,10 @@
 - (int)sendSysex:(int)port byte:(int)byte;
 - (int)sendSysRealTime:(int)port byte:(int)byte;
 */
+
+// Amazing Audio Engine methods
+static void audioCallback(id THIS, AEAudioController *audioController, void *source, const AudioTimeStamp *time, UInt32 frames, AudioBufferList *audio);
+- (AEAudioControllerAudioCallback)receiverCallback;
+
+
 @end

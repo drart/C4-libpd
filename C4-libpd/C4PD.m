@@ -21,6 +21,8 @@
 
 static C4PD * mystaticinstance;
 
+//@synthesize renderCallback; // unsure about this, it prevents a warning "Auto property syntheesis will not synthesize properly declared in a protocol
+
 - (id)init
 {
     // Singleton Pattern
@@ -54,6 +56,7 @@ static C4PD * mystaticinstance;
     [self.channel setAudioDescription:[AEAudioController interleaved16BitStereoAudioDescription]];
     [self.controller addChannels:[NSArray arrayWithObject:_channel]];
     */
+    
     // set up patch patch arrays -> put this in a property?
     //patches = [[NSMutableArray alloc] init];
     patchionary = [[NSMutableDictionary alloc] init];
@@ -244,7 +247,7 @@ static void bangHook(const char *src)
 
 static void audioCallback(id THISptr, AEAudioController *audioController, void *source, const AudioTimeStamp *time, UInt32 frames, AudioBufferList *audio)
 {
-    
+    libpd_process_short(frames/64, audio->mBuffers[0].mData, audio->mBuffers[0].mData);
 }
 
 

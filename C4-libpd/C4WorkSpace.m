@@ -14,12 +14,13 @@
     UITextView * text;
     UISwitch * dspswitch;
     C4Shape * s ;
+    int firstpatch;
 }
 
 -(void)setup
 {
     pd = [[C4PD alloc]init];
-    int firstpatch = [pd openPatch:@"boop.pd"];
+    firstpatch = [pd openPatch:@"boop.pd"];
         
     s = [C4Shape rect:CGRectMake(0, 0, 40, 40)];
     
@@ -104,7 +105,10 @@
         if ([paramSender isOn])
             [pd start];
         else
+        {
             [pd stop];
+            [pd closePatch:firstpatch];
+        }
     }
 }
 
