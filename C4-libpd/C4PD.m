@@ -6,6 +6,7 @@
 //
 
 #import "C4PD.h"
+#import "TheAmazingAudioEngine.h"
 
 // libpd includes
 #include "z_libpd.h"
@@ -14,7 +15,9 @@
 
 @implementation C4PD
 {
-    PdAudioController * audioController;
+    AEAudioController * controller;
+    AEBlockChannel * channel;
+    
     NSMutableArray *  patches;
     NSMutableDictionary * patchionary;
 }
@@ -32,9 +35,31 @@ static C4PD * mystaticinstance;
     
     // init audio for PD
     //--------------------    
-    audioController = [[PdAudioController alloc] init];
-    if ([audioController configureAmbientWithSampleRate:44100 numberChannels:2 mixingEnabled:YES] != PdAudioOK)
-       @throw [NSException exceptionWithName:@"C4PDaudioFailed" reason:@"Opening Audio Fiailed" userInfo:nil ];
+    controller = [[AEAudioController alloc]
+                  initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]
+                  inputEnabled:YES]; // don't forget to autorelease if you don't use ARC!
+    
+    libpd_init();
+    libpd_init_audio((int)controller.numberOfInputChannels, 2, (int)controller.audioDescription.mSampleRate);
+    libpd_start_message(1);
+    libpd_add_float(1.0f);
+    libpd_finish_message("pd", "dsp");
+    
+    NSString * patchName = @"boop.pd";
+    NSString * pathName = [[NSBundle mainBundle] resourcePath];
+    const char * base = [patchName cStringUsingEncoding:NSASCIIStringEncoding];
+    const char * path = [pathName cStringUsingEncoding:NSASCIIStringEncoding];
+    void * pdpatch = libpd_openfile(base, path);
+    
+    channel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *time,
+                                                 UInt32           frames,
+                                                 AudioBufferList *audio)
+               {
+                   libpd_process_short(frames/64, audio->mBuffers[0].mData, audio->mBuffers[0].mData);
+               }];
+    
+    [channel setAudioDescription:[AEAudioController interleaved16BitStereoAudioDescription]];
+    [controller addChannels:[NSArray arrayWithObject:channel]];
     
     // set up patch patch arrays -> put this in a property?
     patches = [[NSMutableArray alloc] init];
@@ -73,7 +98,7 @@ static C4PD * mystaticinstance;
     //NSArray * args = [[NSArray alloc] initWithObjects:val, nil];
     //[self sendMessage:@"dsp" withArguments:args toReceive:@"pd"];
     
-    audioController.active = YES;
+    [controller start:Nil];
 }
 
 - (void) stop
@@ -81,7 +106,9 @@ static C4PD * mystaticinstance;
    // NSNumber * val = [[NSNumber alloc] initWithBool:NO];
    // NSArray * args = [[NSArray alloc] initWithObjects:val, nil];
    //[self sendMessage:@"dsp" withArguments:args toReceive:@"pd"];
-   audioController.active = NO;
+   //audioController.active = NO;
+
+    [controller stop];
 }
 
 - (void)sendFloat:(float)value toReceive:(NSString *)receive
@@ -126,6 +153,7 @@ static void bangHook(const char *src)
 {
     NSString *source = [[NSString alloc] initWithCString:src encoding:NSASCIIStringEncoding];
     //emit C4notification with source
+    
 }
 
 //-------------------------------------------
@@ -134,10 +162,17 @@ static void bangHook(const char *src)
 
 -(int) openPatch: (NSString *) patchName
 {
+    NSString * pathName = [[NSBundle mainBundle] resourcePath];
+    return [self openPatch:patchName inDirectory:pathName];
+}
+
+
+-(int) openPatch:(NSString *)patchName inDirectory:(NSString *)pathName
+{
     void * pdpatch;
     @synchronized(self)
     {
-        NSString * pathName = [[NSBundle mainBundle] resourcePath];
+        //NSString * pathName = [[NSBundle mainBundle] resourcePath];
         const char * base = [patchName cStringUsingEncoding:NSASCIIStringEncoding];
         const char * path = [pathName cStringUsingEncoding:NSASCIIStringEncoding];
         pdpatch = libpd_openfile(base, path);
@@ -150,21 +185,29 @@ static void bangHook(const char *src)
     [patches addObject:[NSValue valueWithPointer:pdpatch]];
     
     // TODO -> move to dictionary instead of array
-    // int dollarzero = libpd_getdollarzero(pdpatch);
-    //[patchionary setObject:[NSValue valueWithPointer:pdpatch] forKey: [NSString stringWithFormat:@"%d",  dollarZero]];
+    int dollarzero = libpd_getdollarzero(pdpatch);
+    [patchionary setObject:[NSValue valueWithPointer:pdpatch] forKey: [NSString stringWithFormat:@"%d",  dollarzero]];
     
-    return libpd_getdollarzero(pdpatch);
+    return dollarzero;
 }
 
 -(void) closePatch: (int) index
 {
-    //[patches[index] closeFile];
-    //[patches removeObjectAtIndex:index];
+    NSString * mykey = [NSString stringWithFormat:@"%d", index];
+    NSValue * p =  [patchionary objectForKey:mykey];
+
+    @synchronized(self)
+    {
+        libpd_closefile([p pointerValue]);
+    }
+    
+    [patchionary removeObjectForKey:mykey];
 }
 
 
 -(int) numberOfPatchesOpen
 {
+    int fff = [patchionary count];
     return [patches count];
 }
 
