@@ -6,7 +6,6 @@
 //
 
 #import "C4PD.h"
-#import "TheAmazingAudioEngine.h"
 
 // libpd includes
 #include "z_libpd.h"
@@ -15,9 +14,7 @@
 
 @implementation C4PD
 {
-    AEAudioController * controller;
-    AEBlockChannel * channel;
-    
+    // Private ivars
     NSMutableArray *  patches;
     NSMutableDictionary * patchionary;
 }
@@ -33,36 +30,32 @@ static C4PD * mystaticinstance;
     
     mystaticinstance = self;
     
-    // init audio for PD
+    // initialize the amazing audio engine
     //--------------------    
-    controller = [[AEAudioController alloc]
+    self.controller = [[AEAudioController alloc]
                   initWithAudioDescription:[AEAudioController nonInterleaved16BitStereoAudioDescription]
                   inputEnabled:YES]; // don't forget to autorelease if you don't use ARC!
     
     libpd_init();
-    libpd_init_audio((int)controller.numberOfInputChannels, 2, (int)controller.audioDescription.mSampleRate);
+    libpd_init_audio((int)self.controller.numberOfInputChannels, 2, (int)self.controller.audioDescription.mSampleRate);
     libpd_start_message(1);
     libpd_add_float(1.0f);
     libpd_finish_message("pd", "dsp");
     
-    NSString * patchName = @"boop.pd";
-    NSString * pathName = [[NSBundle mainBundle] resourcePath];
-    const char * base = [patchName cStringUsingEncoding:NSASCIIStringEncoding];
-    const char * path = [pathName cStringUsingEncoding:NSASCIIStringEncoding];
-    void * pdpatch = libpd_openfile(base, path);
-    
-    channel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *time,
+    /*
+    self.channel = [AEBlockChannel channelWithBlock:^(const AudioTimeStamp  *time,
                                                  UInt32           frames,
                                                  AudioBufferList *audio)
                {
-                   libpd_process_short(frames/64, audio->mBuffers[0].mData, audio->mBuffers[0].mData);
+                   const short * buffer = audio->mBuffers[0].mData;
+                   libpd_process_short(frames/64, buffer, buffer);
                }];
     
-    [channel setAudioDescription:[AEAudioController interleaved16BitStereoAudioDescription]];
-    [controller addChannels:[NSArray arrayWithObject:channel]];
-    
+    [self.channel setAudioDescription:[AEAudioController interleaved16BitStereoAudioDescription]];
+    [self.controller addChannels:[NSArray arrayWithObject:_channel]];
+    */
     // set up patch patch arrays -> put this in a property?
-    patches = [[NSMutableArray alloc] init];
+    //patches = [[NSMutableArray alloc] init];
     patchionary = [[NSMutableDictionary alloc] init];
     
     //---------------------
@@ -92,13 +85,20 @@ static C4PD * mystaticinstance;
     return self;
 }
 
+-(id) initWithPatch:(NSString *)patchName
+{
+    id tada = [self init];
+    [self openPatch:patchName];
+    return tada;
+}
+
 - (void) start
 {
     //NSNumber * val = [[NSNumber alloc] initWithBool:YES];
     //NSArray * args = [[NSArray alloc] initWithObjects:val, nil];
     //[self sendMessage:@"dsp" withArguments:args toReceive:@"pd"];
     
-    [controller start:Nil];
+    [self.controller start:Nil];
 }
 
 - (void) stop
@@ -108,7 +108,7 @@ static C4PD * mystaticinstance;
    //[self sendMessage:@"dsp" withArguments:args toReceive:@"pd"];
    //audioController.active = NO;
 
-    [controller stop];
+    [self.controller stop];
 }
 
 - (void)sendFloat:(float)value toReceive:(NSString *)receive
@@ -238,30 +238,13 @@ static void bangHook(const char *src)
 #pragma mark Notification Methods
 */
 
-
-+ (int)getBlockSize {
-    @synchronized(self) {
-        return libpd_blocksize();
-    }
+-(AEAudioControllerAudioCallback)receiverCallback {
+    return &audioCallback;
 }
 
-+ (int)openAudioWithSampleRate:(int)samplerate inputChannels:(int)inputChannels outputChannels:(int)outputchannels {
-    @synchronized(self) {
-        return libpd_init_audio(inputChannels, outputchannels, samplerate);
-    }
-}
-
-+ (void)computeAudio:(BOOL)enable {
-    NSNumber *val = [[NSNumber alloc] initWithBool:enable];
-    NSArray *args = [[NSArray alloc] initWithObjects:val, nil];
-    [self sendMessage:@"dsp" withArguments:args toReceive:@"pd"];
-
-}
-
-+ (int)processFloatWithInputBuffer:(float *)inputBuffer outputBuffer:(float *)outputBuffer ticks:(int)ticks {
-//    @synchronized(self) {
-        return libpd_process_float(ticks, inputBuffer, outputBuffer);
- //   }
+static void audioCallback(id THISptr, AEAudioController *audioController, void *source, const AudioTimeStamp *time, UInt32 frames, AudioBufferList *audio)
+{
+    
 }
 
 

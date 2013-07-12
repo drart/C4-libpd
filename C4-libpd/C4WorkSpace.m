@@ -37,7 +37,6 @@
     dsptext.textShadowOffset = CGSizeMake(1,1);
     [self.canvas addLabel:dsptext];
     
-    
     /// Set up scrolling text output
     /// text is received from the PD print object via SOMETHING
     text = [[UITextView alloc] initWithFrame:

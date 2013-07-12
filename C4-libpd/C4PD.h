@@ -6,21 +6,27 @@
 //
 
 #import "C4Object.h"
-#import "PdAudioController.h"
+#import "TheAmazingAudioEngine.h"
 
-@interface C4PD : C4Object //<C4Notification>
+@interface C4PD : C4Object <AEAudioPlayable>
+
+@property (nonatomic, strong) AEAudioController *controller;
+//@property (nonatomic, strong) AEBlockChannel * channel;
 
 -(id) init;
--(int) initWithPatch: (NSString *) patchName;
+-(id) initWithPatch: (NSString *) patchName;
 
+// Turn DSP on and off
 -(void) start;
 -(void) stop;
 
 // Patch Management
 -(int) openPatch: (NSString *) patchName;
+-(int) openPatch: (NSString *) patchName inDirectory:(NSString *)pathName;
 -(void) closePatch: (int) index;
-//-(void) closePatchFromFilename: (NSString *) fileName;
 -(int) numberOfPatchesOpen;
+
+//-(void) closePatchFromFilename: (NSString *) fileName;
 //-(void) printPatches;
 //-(NSArray *) patchNames;
 
@@ -30,12 +36,7 @@
 -(void) sendFloat: (float)f toReceive:(NSString *)receive;
 -(void) sendFloatToAPatch:(float)f toReceive:(NSString *)receive toPatch:(int)index;
 
-
 +(void)sendMessage:(NSString *)message withArguments:(NSArray *)list toReceive:(NSString *)receive;
-+ (int)getBlockSize;
-+ (int)openAudioWithSampleRate:(int)samplerate inputChannels:(int)inputChannels outputChannels:(int)outputchannels;
-+ (void)computeAudio:(BOOL)enable ;
-+ (int)processFloatWithInputBuffer:(float *)inputBuffer outputBuffer:(float *)outputBuffer ticks:(int)ticks;
 
 // Send MIDI to PD
 /*- (int)sendNoteOn:(int)channel pitch:(int)pitch velocity:(int)velocity;
